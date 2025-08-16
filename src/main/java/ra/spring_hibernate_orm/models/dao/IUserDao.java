@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IUserDao {
 
-    List<User> findAll();
+    List<User> findAll(int page,int size);
 
     boolean addUser(User user);
 

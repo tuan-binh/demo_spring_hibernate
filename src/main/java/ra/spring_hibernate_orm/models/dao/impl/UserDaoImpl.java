@@ -15,12 +15,16 @@ public class UserDaoImpl implements IUserDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    // phân trang nên bắt đầu từ 0
     @Override
-    public List<User> findAll() {
+    public List<User> findAll(int page,int size) {
         // mở session
         Session session = sessionFactory.openSession();
         // thực hiện truy vấn
-        List<User> userList = session.createQuery("SELECT u FROM User u", User.class).list();
+        List<User> userList = session.createQuery("SELECT u FROM User u", User.class)
+                .setFirstResult(page * size)
+                .setMaxResults(size)
+                .list();
         // đóng session
         session.close();
         return userList;
